@@ -1,20 +1,21 @@
 import React from 'react';
 import Image from 'next/image';
 import LogoLoop from './LogoLoop/LogoLoop';
-import { SiHtml5, SiCss3, SiJavascript, SiPhp, SiMysql, SiLaravel, SiReact, SiNextdotjs, SiTailwindcss, SiFigma } from 'react-icons/si';
 
 export default function AboutSection() {
     const techLogos = [
-        { node: <SiHtml5 color="#ffffff" />, title: "HTML" },
-        { node: <SiCss3 color="#ffffff" />, title: "CSS" },
-        { node: <SiJavascript color="#ffffff" />, title: "JavaScript" },
-        { node: <SiPhp color="#ffffff" />, title: "PHP" },
-        { node: <SiMysql color="#ffffff" />, title: "MySQL" },
-        { node: <SiLaravel color="#ffffff" />, title: "Laravel" },
-        { node: <SiReact color="#ffffff" />, title: "React" },
-        { node: <SiNextdotjs color="#ffffff" />, title: "Next.js" },
-        { node: <SiTailwindcss color="#ffffff" />, title: "Tailwind CSS" },
-        { node: <SiFigma color="#ffffff" />, title: "Figma" },
+        { src: '/assets/img/html.png', alt: 'HTML' },
+        { src: '/assets/img/css.png', alt: 'CSS' },
+        { src: '/assets/img/javascript.png', alt: 'JavaScript' },
+        { src: '/assets/img/php.png', alt: 'PHP' },
+        { src: '/assets/img/mysql.png', alt: 'MySQL' },
+        { src: '/assets/img/laravel.png', alt: 'Laravel' },
+        { src: '/assets/img/react.png', alt: 'React' },
+        { src: '/assets/img/nextjs.png', alt: 'Next.js' },
+        { src: '/assets/img/tailwindcss.png', alt: 'Tailwind CSS' },
+        { src: '/assets/img/figma.png', alt: 'Figma' },
+        { src: '/assets/img/expressjs.png', alt: 'Express JS' },
+        { src: '/assets/img/nodejs.png', alt: 'Node JS' },
     ];
 
     return (
@@ -25,7 +26,7 @@ export default function AboutSection() {
                     <div className="relative w-full max-w-sm md:w-1/2">
                         <div className="relative z-10 w-full overflow-hidden rounded-lg">
                             <Image
-                                src="/assets/img/aku.png" 
+                                src="/assets/img/aku.png"
                                 alt="Profile Picture"
                                 width={500}
                                 height={500}
@@ -46,7 +47,7 @@ export default function AboutSection() {
                             Dengan pengalaman saya, saya berkomitmen untuk terus belajar dan mengadaptasi teknologi terbaru untuk memberikan solusi terbaik. Mari kita ciptakan sesuatu yang luar biasa bersama!
                         </p>
                         
-                        <div className="mt-8 flex items-center justify-center">
+                        <div className="mt-8">
                             <LogoLoop
                                 logos={techLogos}
                                 speed={120}
@@ -56,9 +57,22 @@ export default function AboutSection() {
                                 pauseOnHover
                                 scaleOnHover
                                 fadeOut
-                                fadeOutColor="#ffffff"
+                                fadeOutColor="#000000"
                                 ariaLabel="Keahlian teknologi"
-                            />
+                            >
+                                {/* Ini adalah children dari LogoLoop */}
+                                {techLogos.map((skill, index) => (
+                                    <div key={index} className="flex h-12 w-12 items-center justify-center p-2 mx-4">
+                                        <Image
+                                            src={skill.src}
+                                            alt={skill.alt}
+                                            width={48}
+                                            height={48}
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                ))}
+                            </LogoLoop>
                         </div>
                     </div>
                 </div>
