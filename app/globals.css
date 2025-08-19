@@ -19,3 +19,34 @@ body {
 .animate-marquee {
   animation: marquee 15s linear infinite; /* Sesuaikan durasi sesuai keinginan Anda */
 }
+
+/* components/LanyardCard.css */
+
+.flip-container {
+  perspective: 1000px; /* Jarak untuk efek 3D */
+}
+
+.flipper {
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flipped .flipper {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.back {
+  transform: rotateY(180deg);
+}

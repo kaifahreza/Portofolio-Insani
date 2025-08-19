@@ -1,21 +1,22 @@
 import React from 'react';
 import Image from 'next/image';
 import LogoLoop from './LogoLoop/LogoLoop';
+import LanyardCard from './LanyardCard';
 
 export default function AboutSection() {
     const techLogos = [
-        { src: '/assets/img/html.png', alt: 'HTML' },
-        { src: '/assets/img/css.png', alt: 'CSS' },
-        { src: '/assets/img/javascript.png', alt: 'JavaScript' },
-        { src: '/assets/img/php.png', alt: 'PHP' },
-        { src: '/assets/img/mysql.png', alt: 'MySQL' },
-        { src: '/assets/img/laravel.png', alt: 'Laravel' },
-        { src: '/assets/img/react.png', alt: 'React' },
-        { src: '/assets/img/nextjs.png', alt: 'Next.js' },
-        { src: '/assets/img/tailwindcss.png', alt: 'Tailwind CSS' },
-        { src: '/assets/img/figma.png', alt: 'Figma' },
-        { src: '/assets/img/expressjs.png', alt: 'Express JS' },
-        { src: '/assets/img/nodejs.png', alt: 'Node JS' },
+        { src: '/assets/img/skill/html.png', alt: 'HTML' },
+        { src: '/assets/img/skill/css.png', alt: 'CSS' },
+        { src: '/assets/img/skill/javascript.png', alt: 'JavaScript' },
+        { src: '/assets/img/skill/php.png', alt: 'PHP' },
+        { src: '/assets/img/skill/mysql.png', alt: 'MySQL' },
+        { src: '/assets/img/skill/laravel.png', alt: 'Laravel' },
+        { src: '/assets/img/skill/react.png', alt: 'React' },
+        { src: '/assets/img/skill/nextjs.png', alt: 'Next.js' },
+        { src: '/assets/img/skill/tailwindcss.png', alt: 'Tailwind CSS' },
+        { src: '/assets/img/skill/figma.png', alt: 'Figma' },
+        { src: '/assets/img/skill/expressjs.png', alt: 'Express JS' },
+        { src: '/assets/img/skill/nodejs.png', alt: 'Node JS' },
     ];
 
     return (
@@ -25,20 +26,14 @@ export default function AboutSection() {
                     {/* Section Foto dan Sosial Media */}
                     <div className="relative w-full max-w-sm md:w-1/2">
                         <div className="relative z-10 w-full overflow-hidden rounded-lg">
-                            <Image
-                                src="/assets/img/aku.png"
-                                alt="Profile Picture"
-                                width={500}
-                                height={500}
-                                className="w-full h-auto object-cover"
-                            />
+                            <LanyardCard />
                         </div>
                     </div>
 
                     {/* Section Teks "About Me" */}
                     <div className="w-full text-center md:w-1/2 md:text-left">
                         <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl">
-                            <span className="text-gray-400">About Me</span>
+                            <span className="text-white">About Me</span>
                         </h2>
                         <p className="mt-6 font-light leading-relaxed text-gray-400">
                             Halo! Saya adalah seorang desainer dan pengembang yang bersemangat dalam menciptakan pengalaman digital yang menarik. Saya memiliki keahlian dalam desain UI/UX dan pengembangan web full-stack. Saya suka mengubah ide-ide menjadi produk digital yang fungsional dan indah.
