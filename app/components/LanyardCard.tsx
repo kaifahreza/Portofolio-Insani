@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { IconBrandInstagram, IconBrandLinkedin, IconMail, IconMapPin } from '@tabler/icons-react';
-import QRCode from "react-qr-code"; // Impor komponen QRCode
+import QRCode from "react-qr-code";
 
 export default function LanyardCard() {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -17,18 +17,16 @@ export default function LanyardCard() {
       onClick={handleFlip}
     >
       <div className="flipper">
-        {/* Lanyard Clip */}
-        
         {/* Bagian Depan Kartu */}
         <div className="front">
           <div className="relative w-full h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl border border-gray-200 overflow-hidden">
             
-            {/* Header Section */}
-            <div className="relative h-20 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-4">
+            {/* Header Section (Blue) */}
+            <div className="relative h-20 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 p-4">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="relative z-10">
-                <div className="text-white font-bold text-xs opacity-80">DEVELOPER ID</div>
-                <div className="text-white text-xs opacity-60">#INS-2024-001</div>
+                <div className="text-white font-bold text-xs opacity-80">FULLSTACK DEVELOPER</div>
+                <div className="text-white text-xs opacity-60">#ARC758</div>
               </div>
               <div className="absolute top-2 right-2 w-8 h-8 bg-white/20 rounded-full"></div>
               <div className="absolute bottom-2 right-4 w-4 h-4 bg-white/10 rounded-full"></div>
@@ -94,7 +92,7 @@ export default function LanyardCard() {
               </div>
 
               <div className="text-xs text-gray-500 mt-6">
-                <p>Insani.dev</p>
+                <p>Insani</p>
                 <p>arulfitrahinsani10@gmail.com</p>
               </div>
             </div>

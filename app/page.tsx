@@ -1,4 +1,3 @@
-// app/page.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -6,17 +5,20 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import MarqueeText from './components/MarqueeText';
 import AboutSection from './components/AboutSection';
-
+import LoadingScreen from './components/LoadingScreen';
 
 export default function Home() {
-    const [mounted, setMounted] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setMounted(true);
+        // Simulasikan waktu pemuatan, ganti dengan logika pemuatan data asli Anda
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
     }, []);
 
-    if (!mounted) {
-        return null;
+    if (isLoading) {
+        return <LoadingScreen />;
     }
 
     return (
