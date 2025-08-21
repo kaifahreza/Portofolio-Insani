@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection';
 import MarqueeText from './components/MarqueeText';
 import AboutSection from './components/AboutSection';
 import LoadingScreen from './components/LoadingScreen';
+import ProjectSection from './components/ProjectSection';
 
 export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +28,7 @@ export default function Home() {
             <HeroSection />
             <MarqueeText />
             <AboutSection />
+            <ProjectSection />
         </main>
     );
 }

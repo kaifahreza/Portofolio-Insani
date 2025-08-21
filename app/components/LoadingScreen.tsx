@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -33,7 +35,7 @@ const LoadingScreen: React.FC = () => {
         }, 1500);
 
         return () => clearInterval(interval);
-    }, [greetings.length]); // Menambahkan dependency
+    }, [greetings.length]);
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
@@ -50,7 +52,6 @@ const LoadingScreen: React.FC = () => {
                     const opacity = Math.random() * 0.6 + 0.1;
                     const duration = Math.random() * 20 + 15;
                     const delay = Math.random() * 10;
-                    
                     return (
                         <div
                             key={i}

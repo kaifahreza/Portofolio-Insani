@@ -1,7 +1,8 @@
-// components/LanyardCard.tsx
+'use client';
+
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { IconBrandInstagram, IconBrandLinkedin, IconMail, IconMapPin } from '@tabler/icons-react';
+import { IconMail, IconMapPin, IconPhone, IconWorld } from '@tabler/icons-react';
 import QRCode from "react-qr-code";
 
 export default function LanyardCard() {
@@ -12,88 +13,142 @@ export default function LanyardCard() {
   };
 
   return (
-    <div 
-      className={`relative w-72 h-[420px] rounded-2xl shadow-2xl overflow-hidden cursor-pointer flip-container ${isFlipped ? 'flipped' : ''}`}
-      onClick={handleFlip}
-    >
-      <div className="flipper">
-        {/* Bagian Depan Kartu */}
-        <div className="front">
-          <div className="relative w-full h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl border border-gray-200 overflow-hidden">
-            
-            {/* Header Section (Blue) */}
-            <div className="relative h-20 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 p-4">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <div className="relative z-10">
-                <div className="text-white font-bold text-xs opacity-80">FULLSTACK DEVELOPER</div>
-                <div className="text-white text-xs opacity-60">#ARC758</div>
-              </div>
-              <div className="absolute top-2 right-2 w-8 h-8 bg-white/20 rounded-full"></div>
-              <div className="absolute bottom-2 right-4 w-4 h-4 bg-white/10 rounded-full"></div>
-            </div>
+    <div className="flex flex-col items-center">
+      {/* Lanyard Strap */}
+      <div className="w-6 h-16 bg-gradient-to-b from-gray-300 to-gray-400 rounded-b-full shadow-inner relative">
+        <div className="absolute inset-x-0 top-0 h-2 bg-gray-200 rounded-full"></div>
+        <div className="absolute inset-x-0 bottom-0 w-8 h-3 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full -mx-1 shadow-md"></div>
+      </div>
 
-            {/* Content Section */}
-            <div className="p-6 pt-8">
-              <div className="relative w-32 h-32 mx-auto mb-6">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full p-1">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white">
-                    <Image
-                      src="/assets/img/aku.png"
-                      alt="Profile Picture"
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover"
-                    />
+      {/* Card Container */}
+      <div 
+        className="relative w-80 h-[480px] rounded-lg cursor-pointer"
+        onClick={handleFlip}
+        style={{ 
+          perspective: '1000px'
+        }}
+      >
+        <div 
+          className="relative w-full h-full transition-transform duration-700"
+          style={{ 
+            transformStyle: 'preserve-3d',
+            transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
+          }}
+        >
+          {/* Front Side */}
+          <div 
+            className="absolute inset-0"
+            style={{ 
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden'
+            }}
+          >
+            <div className="relative w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-lg shadow-2xl overflow-hidden">
+              
+              {/* Top Section with Profile */}
+              <div className="relative p-8 pt-12">
+                {/* Profile Picture with Red Accent Ring */}
+                <div className="relative w-24 h-24 mx-auto mb-6">
+                  <div className="absolute inset-0 bg-red-500 rounded-full p-1">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-gray-800">
+                      <Image
+                        src="/assets/img/aku.png"
+                        alt="Profile Picture"
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white shadow-lg">
-                  <div className="w-full h-full bg-green-400 rounded-full animate-pulse"></div>
+
+                {/* Name & Title */}
+                <div className="text-center mb-8">
+                  <h3 className="font-bold text-2xl text-white mb-2 tracking-wide">INSANI</h3>
+                  <p className="text-lg text-gray-300 font-medium">Fullstack Developer</p>
                 </div>
-              </div>
-              <div className="text-center mb-6">
-                <h3 className="font-bold text-xl text-gray-800 mb-1">Insani</h3>
-                <p className="text-sm font-medium text-gray-600 mb-1">Fullstack Developer</p>
-                <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
-                  <IconMapPin className="h-3 w-3" />
-                  <span>Bandung, Indonesia</span>
+
+                {/* Contact Information */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconPhone className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="text-sm">+6281 234 5678</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconMail className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="text-sm">arulfitrahinsani10@gmail.com</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconWorld className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="text-sm">www.insani.dev</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconMapPin className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="text-sm">Bandung, Indonesia</span>
+                  </div>
                 </div>
+
               </div>
-              <div className="flex flex-wrap justify-center gap-2 mb-6">
-                <span className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full font-medium">React</span>
-                <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full font-medium">Node.js</span>
-                <span className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded-full font-medium">Next.js</span>
-              </div>
-              <div className="flex justify-center gap-6">
-                <a href="https://www.linkedin.com/in/insani" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex items-center justify-center w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-full transition-all duration-200 hover:scale-110 group"><IconBrandLinkedin className="h-5 w-5 text-blue-600 group-hover:text-blue-700" /></a>
-                <a href="https://www.instagram.com/innsannii/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center justify-center w-10 h-10 bg-pink-50 hover:bg-pink-100 rounded-full transition-all duration-200 hover:scale-110 group"><IconBrandInstagram className="h-5 w-5 text-pink-600 group-hover:text-pink-700" /></a>
-                <a href="mailto:arulfitrahinsani10@gmail.com" aria-label="Email" className="flex items-center justify-center w-10 h-10 bg-gray-50 hover:bg-gray-100 rounded-full transition-all duration-200 hover:scale-110 group"><IconMail className="h-5 w-5 text-gray-600 group-hover:text-gray-700" /></a>
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-gray-100 to-gray-200 flex items-center justify-center">
-              <div className="text-xs text-gray-500 font-mono">EST. 2024</div>
             </div>
           </div>
-        </div>
 
-        {/* Bagian Belakang Kartu */}
-        <div className="back">
-          <div className="relative w-full h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="p-8 flex flex-col items-center justify-center h-full text-center">
-              <h4 className="font-bold text-lg mb-2 text-gray-800">SCAN ME</h4>
-              <p className="text-sm text-gray-600 mb-6">untuk melihat portofolio saya</p>
+          {/* Back Side */}
+          <div 
+            className="absolute inset-0"
+            style={{ 
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)'
+            }}
+          >
+            <div className="relative w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-lg shadow-2xl overflow-hidden">
               
-              {/* Kode QR yang Dihasilkan */}
-              <div className="w-48 h-48 bg-white p-4 rounded-lg flex items-center justify-center shadow-inner">
-                <QRCode
-                  value="https://insani.dev" // Ganti dengan URL atau data Anda sendiri
-                  size={160}
-                  className="w-full h-full"
-                />
-              </div>
+              {/* Red Accent Lines */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-red-500"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-red-500"></div>
+              
+              <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                
+                {/* Brand Logo Area */}
+                <div className="mb-8">
+                  <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <span className="text-white font-bold text-2xl">I</span>
+                  </div>
+                </div>
 
-              <div className="text-xs text-gray-500 mt-6">
-                <p>Insani</p>
-                <p>arulfitrahinsani10@gmail.com</p>
+                {/* Brand Name */}
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-white tracking-wider mb-2">INSANI</h2>
+                  <p className="text-red-400 text-sm uppercase tracking-widest">Fullstack Developer</p>
+                </div>
+
+                {/* QR Code */}
+                <div className="bg-white p-4 rounded-lg mb-6">
+                  <QRCode
+                    value="https://insani.dev"
+                    size={120}
+                    className="w-full h-full"
+                    fgColor="#000000"
+                    bgColor="#ffffff"
+                  />
+                </div>
+
+                {/* Website */}
+                <div className="text-center">
+                  <div className="text-white text-sm font-bold mb-2">Satu baris kode hari ini, satu langkah maju untuk besok.</div>
+                  <div className="text-white text-[8px] font-semibold">Arcshin</div>
+                </div>
               </div>
             </div>
           </div>

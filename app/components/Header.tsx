@@ -1,39 +1,89 @@
-import { IconBriefcase, IconId, IconMail } from '@tabler/icons-react';
+'use client';
+
 import Link from 'next/link';
-import { ElementType } from 'react';
-
-interface NavLinkProps {
-    href: string;
-    icon: ElementType;
-    text: string;
-}
-
-const NavLink: React.FC<NavLinkProps> = ({ href, icon: Icon, text }) => (
-    <Link href={href} className="group relative z-10 flex cursor-pointer items-center gap-1">
-        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-        <span className="hidden sm:inline">{text}</span>
-    </Link>
-);
+import { useEffect, useState } from 'react';
+import { IconMenu2, IconX } from '@tabler/icons-react';
 
 export default function Header() {
-    return (
-        <header className="absolute top-0 z-40 flex w-full flex-col items-center justify-between gap-2 p-4 font-light text-white sm:p-9 md:flex-row md:gap-0">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 rounded-full border border-gray-100/20 p-2 text-xs leading-tight sm:p-3 sm:text-sm">
-                <span className="relative flex items-center justify-center">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-white sm:h-3 sm:w-3"></span>
-                </span>
-                <span>Insani.</span>
-            </Link>
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-            {/* Navigation Menu */}
+    useEffect(() => {
+        const handleScroll = () => {
+        if (window.scrollY > 100) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+            setIsOpen(false);
+        }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+        window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    return (
+        <>
+        {/* Navigasi Utama (Terlihat sebelum dan sesudah scroll) */}
+        <header className="absolute top-0 z-40 flex w-full items-center justify-between p-4 font-light text-white sm:p-9">
+            {/* Logo */}
+            <Link href="/" className="text-xl font-medium">
+            Arcshin
+            </Link>
+            {/* Navigasi Link */}
             <nav className="flex items-center">
-                <div className="flex items-center gap-4 rounded-full border border-gray-100/20 px-3 py-2 text-xs leading-tight sm:gap-10 sm:px-5 sm:py-3 sm:text-sm md:ml-4">
-                    <NavLink href="#" icon={IconBriefcase} text="Work" />
-                    <NavLink href="#" icon={IconId} text="About" />
-                    <NavLink href="#" icon={IconMail} text="Contact" />
-                </div>
+            <div className="flex items-center gap-4 rounded-full border border-gray-100/20 px-3 py-2 text-xs leading-tight sm:gap-10 sm:px-5 sm:py-3 sm:text-sm">
+                <Link href="#" className="cursor-pointer">
+                Works
+                </Link>
+                <Link href="#" className="cursor-pointer">
+                About
+                </Link>
+                <Link href="#" className="cursor-pointer">
+                Contact
+                </Link>
+            </div>
             </nav>
         </header>
+
+        {/* Tombol menu yang muncul hanya saat di-scroll */}
+        <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={`
+            fixed top-4 right-4 z-[60] p-2 transition-all duration-300 rounded-full
+            ${isScrolled ? 'opacity-100 visible' : 'opacity-0 invisible'}
+            ${isOpen ? 'bg-white/10 backdrop-blur-sm' : 'bg-transparent'}
+            `}
+        >
+            {isOpen ? <IconX className="w-6 h-6 text-white" /> : <IconMenu2 className="w-6 h-6 text-white" />}
+        </button>
+
+        {/* Panel Navigasi Samping */}
+        <nav
+            className={`
+            fixed top-0 bottom-0 right-0 z-[55] w-64 bg-black/80 backdrop-blur-lg text-white
+            transform transition-transform duration-300 ease-in-out
+            ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+            flex flex-col items-start gap-8 p-10
+            `}
+        >
+            <span className="text-sm text-gray-400">NAVIGATION</span>
+            <Link href="#" onClick={() => setIsOpen(false)} className="text-4xl font-light">
+            Home
+            </Link>
+            <Link href="#" onClick={() => setIsOpen(false)} className="text-4xl font-light">
+            Works
+            </Link>
+            <Link href="#" onClick={() => setIsOpen(false)} className="text-4xl font-light">
+            About
+            </Link>
+            <Link href="#" onClick={() => setIsOpen(false)} className="text-4xl font-light">
+            Contact
+            </Link>
+        </nav>
+        </>
     );
 }

@@ -1,4 +1,5 @@
-// components/MarqueeText.tsx
+'use client';
+
 import React from 'react';
 import ScrollVelocity from './ScrollVelocity/ScrollVelocity';
 
