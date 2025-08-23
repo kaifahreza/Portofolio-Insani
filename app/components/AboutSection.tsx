@@ -33,9 +33,19 @@ export default function AboutSection() {
 
     const [hoveredTech, setHoveredTech] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [particles, setParticles] = useState([]);
 
     useEffect(() => {
         setIsVisible(true);
+
+        // Generate particles only on the client side
+        const particleArray = [...Array(20)].map((_, i) => ({
+            key: i,
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+            animationDelay: Math.random() * 3,
+        }));
+        setParticles(particleArray);
     }, []);
 
     return (
@@ -65,7 +75,7 @@ export default function AboutSection() {
                         </div>
 
                         {/* Floating Tech Items */}
-                        {floatingTechStack.map((tech, index) => (
+                        {floatingTechStack.map((tech) => (
                             <div
                                 key={tech.name}
                                 className={`absolute transform transition-all duration-700 cursor-pointer ${
@@ -113,7 +123,7 @@ export default function AboutSection() {
                                         <div 
                                             className="w-full h-full animate-bounce opacity-60"
                                             style={{
-                                                animationDelay: `${index * 0.3}s`,
+                                                animationDelay: `${tech.delay}s`,
                                                 animationDuration: '3s'
                                             }}
                                         ></div>
@@ -146,14 +156,14 @@ export default function AboutSection() {
 
                         {/* Background Particles */}
                         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            {[...Array(20)].map((_, i) => (
+                            {particles.map((particle) => (
                                 <div
-                                    key={i}
+                                    key={particle.key}
                                     className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30"
                                     style={{
-                                        left: `${Math.random() * 100}%`,
-                                        top: `${Math.random() * 100}%`,
-                                        animation: `float 6s ease-in-out infinite ${Math.random() * 3}s`,
+                                        left: `${particle.left}%`,
+                                        top: `${particle.top}%`,
+                                        animation: `float 6s ease-in-out infinite ${particle.animationDelay}s`,
                                     }}
                                 />
                             ))}

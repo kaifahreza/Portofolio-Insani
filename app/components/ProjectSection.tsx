@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -29,19 +31,22 @@ export default function ProjectSection() {
     const [hoveredProject, setHoveredProject] = useState(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    // Track mouse movement
+    // Track mouse movement. The issue is in this useEffect hook.
     useEffect(() => {
-        const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
-
-        if (hoveredProject) {
-            window.addEventListener('mousemove', handleMouseMove);
+        // We ensure this code only runs on the client side by checking for the 'window' object.
+        if (typeof window !== 'undefined') {
+            const handleMouseMove = (e) => {
+                setMousePosition({ x: e.clientX, y: e.clientY });
+            };
+    
+            if (hoveredProject) {
+                window.addEventListener('mousemove', handleMouseMove);
+            }
+    
+            return () => {
+                window.removeEventListener('mousemove', handleMouseMove);
+            };
         }
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
     }, [hoveredProject]);
 
     return (
