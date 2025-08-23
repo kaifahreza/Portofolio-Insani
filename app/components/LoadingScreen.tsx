@@ -3,29 +3,57 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const LoadingScreen: React.FC = () => {
-    const greetings = [
-        { text: "Hello", lang: "English" },
-        { text: "Halo", lang: "Indonesian" },
-        { text: "こんにちは", lang: "Japanese" },
-        { text: "안녕하세요", lang: "Korean" },
-        { text: "你好", lang: "Chinese" },
-        { text: "Bonjour", lang: "French" },
-        { text: "Hola", lang: "Spanish" },
-        { text: "Guten Tag", lang: "German" },
-        { text: "Ciao", lang: "Italian" },
-        { text: "Olá", lang: "Portuguese" },
-        { text: "Привет", lang: "Russian" },
-        { text: "مرحبا", lang: "Arabic" },
-        { text: "नमस्ते", lang: "Hindi" },
-        { text: "สวัสดี", lang: "Thai" },
-        { text: "Xin chào", lang: "Vietnamese" }
-    ];
+const greetings = [
+    { text: "Hello", lang: "English" },
+    { text: "Halo", lang: "Indonesian" },
+    { text: "こんにちは", lang: "Japanese" },
+    { text: "안녕하세요", lang: "Korean" },
+    { text: "你好", lang: "Chinese" },
+    { text: "Bonjour", lang: "French" },
+    { text: "Hola", lang: "Spanish" },
+    { text: "Guten Tag", lang: "German" },
+    { text: "Ciao", lang: "Italian" },
+    { text: "Olá", lang: "Portuguese" },
+    { text: "Привет", lang: "Russian" },
+    { text: "مرحبا", lang: "Arabic" },
+    { text: "नमस्ते", lang: "Hindi" },
+    { text: "สวัสดี", lang: "Thai" },
+    { text: "Xin chào", lang: "Vietnamese" }
+];
 
+const LoadingScreen: React.FC = () => {
     const [currentGreeting, setCurrentGreeting] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
+    const [particles, setParticles] = useState([]);
+    const [geos, setGeos] = useState([]);
 
     useEffect(() => {
+        // Generate particles only on the client side
+        const particleArray = [...Array(40)].map((_, i) => ({
+            key: i,
+            size: Math.random() * 3 + 1,
+            opacity: Math.random() * 0.6 + 0.1,
+            duration: Math.random() * 20 + 15,
+            delay: Math.random() * 10,
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+        }));
+        setParticles(particleArray);
+
+        // Generate geometric shapes only on the client side
+        const geoArray = [...Array(8)].map((_, i) => ({
+            key: `geo-${i}`,
+            size: 20 + Math.random() * 30,
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+            duration: 10 + Math.random() * 20,
+            delay: Math.random() * 5,
+            borderRadius: Math.random() > 0.5 ? '50%' : '0%',
+            transform: `rotate(${Math.random() * 360}deg)`
+        }));
+        setGeos(geoArray);
+        
+        // Interval for changing greetings
         const interval = setInterval(() => {
             setIsVisible(false);
             setTimeout(() => {
@@ -35,11 +63,11 @@ const LoadingScreen: React.FC = () => {
         }, 1500);
 
         return () => clearInterval(interval);
-    }, [greetings.length]);
+    }, []);
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
-            {/* Elegant animated background with floating particles and gradient orbs */}
+            {/* Animated background with floating particles and gradient orbs */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Gradient orbs */}
                 <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-purple-900/20 to-blue-900/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
@@ -47,29 +75,23 @@ const LoadingScreen: React.FC = () => {
                 <div className="absolute top-3/4 left-1/3 w-32 h-32 bg-gradient-to-r from-gray-700/10 to-gray-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
                 
                 {/* Floating particles with different sizes and opacity */}
-                {[...Array(40)].map((_, i) => {
-                    const size = Math.random() * 3 + 1;
-                    const opacity = Math.random() * 0.6 + 0.1;
-                    const duration = Math.random() * 20 + 15;
-                    const delay = Math.random() * 10;
-                    return (
-                        <div
-                            key={i}
-                            className="absolute rounded-full bg-white animate-bounce"
-                            style={{
-                                width: `${size}px`,
-                                height: `${size}px`,
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                                opacity: opacity,
-                                animationDuration: `${duration}s`,
-                                animationDelay: `${delay}s`,
-                                animationIterationCount: 'infinite',
-                                animationTimingFunction: 'ease-in-out'
-                            }}
-                        ></div>
-                    );
-                })}
+                {particles.map((particle) => (
+                    <div
+                        key={particle.key}
+                        className="absolute rounded-full bg-white animate-bounce"
+                        style={{
+                            width: `${particle.size}px`,
+                            height: `${particle.size}px`,
+                            left: `${particle.left}%`,
+                            top: `${particle.top}%`,
+                            opacity: particle.opacity,
+                            animationDuration: `${particle.duration}s`,
+                            animationDelay: `${particle.delay}s`,
+                            animationIterationCount: 'infinite',
+                            animationTimingFunction: 'ease-in-out'
+                        }}
+                    ></div>
+                ))}
 
                 {/* Subtle grid pattern overlay */}
                 <div 
@@ -84,19 +106,19 @@ const LoadingScreen: React.FC = () => {
                 ></div>
 
                 {/* Floating geometric shapes */}
-                {[...Array(8)].map((_, i) => (
+                {geos.map((geo) => (
                     <div
-                        key={`geo-${i}`}
+                        key={geo.key}
                         className="absolute border border-white/10 animate-spin"
                         style={{
-                            width: `${20 + Math.random() * 30}px`,
-                            height: `${20 + Math.random() * 30}px`,
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDuration: `${10 + Math.random() * 20}s`,
-                            animationDelay: `${Math.random() * 5}s`,
-                            borderRadius: Math.random() > 0.5 ? '50%' : '0%',
-                            transform: `rotate(${Math.random() * 360}deg)`
+                            width: `${geo.size}px`,
+                            height: `${geo.size}px`,
+                            left: `${geo.left}%`,
+                            top: `${geo.top}%`,
+                            animationDuration: `${geo.duration}s`,
+                            animationDelay: `${geo.delay}s`,
+                            borderRadius: geo.borderRadius,
+                            transform: geo.transform
                         }}
                     ></div>
                 ))}
